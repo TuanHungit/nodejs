@@ -7,9 +7,12 @@
   "author": "Hung Nguyen",
   "license": "MIT",
   "private": true,
-  "workspaces":{
-    "packages":[
+  "workspaces": {
+    "packages": [
       "packages/*"
     ]
+  },
+  "dependencies": {
+    "knex": "^0.20.13"
   }
 }
