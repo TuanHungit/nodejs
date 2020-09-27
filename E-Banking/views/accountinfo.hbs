@@ -1,0 +1,140 @@
+{{>header}}
+<div class="main-content">
+  <!-- Header -->
+  <div class="header bg-gradient-primary py-7 py-lg-8 pt-lg-9">
+    <div class="container">
+      <div class="header-body text-center mb-7">
+        <div class="row justify-content-center">
+          <div class="col-xl-6 col-lg-6 col-md-8 px-5">
+            <h1 class="text-white">Thông tin tài khoản của bạn</h1>
+               {{#if message}}
+                    <h3 class="text-info">{{message}}</h3>
+                {{/if}} 
+          </div>
+        </div>
+      </div>
+        <div class="separator separator-bottom separator-skew zindex-100">
+            <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
+            </svg>
+        </div>
+    </div>
+</div>
+    <div class="container mt--8 pb-5">
+        <div class="row justify-content-center">
+        {{#with Account}}
+            <div class="col-xl-5">
+                <div class="card bg-secondary border-0 mb-0">
+                    <div class="card-header bg-transparent pb-5">
+                         <div class="text-muted text-center mt-2 mb-3"><small></small></div>
+                         <div class="btn-wrapper text-center" style="height: auto;">                              
+                            <div class="row">
+                                <div class="card-body px-lg-4 py-lg-4">
+                                     <h2 class="text-info">Thông tin tài khoản!!</h2>                                  
+                                        <form role="form r">
+                                           <div class="form-group mb-3">
+                                                <label class="control-label">Họ Tên</label>
+                                                <div class="input-group input-group-merge input-group-alternative">
+                                                    <label class="form-control">{{User.fullname}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group mb-3">
+                                                <label class="control-label">Email</label>
+                                                <div class="input-group input-group-merge input-group-alternative">
+                                                    <label class="form-control">{{User.username}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group mb-3">
+                                                <label class="control-label">Số tài khoản</label>
+                                                <div class="input-group input-group-merge input-group-alternative">
+                                                    <label class="form-control">{{accountNumber}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group mb-3">
+                                                <label class="control-label">Số dư tài khoản</label>
+                                                <div class="input-group input-group-merge input-group-alternative">
+                                                    <label class="form-control">{{balance}} VND</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group mb-3">
+                                                <label class="control-label">Trạng thái</label>
+                                                <div class="input-group input-group-merge input-group-alternative">
+                                                    {{#if status}}
+                                                    <label class="form-control">Đang kích hoạt</label>
+                                                    {{else}}
+                                                    <label class="form-control">Đã bị khóa</label>
+                                                    {{/if}}
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <div class="form-group">
+                                            <form
+                                                onSubmit="return confirm('Lưu ý, bạn sẽ phải liên hệ quản trị viên để Active tài khoản, bạn có muốn tiếp tục không?');"
+                                                method="POST" action="/account/disable/{{id}}">
+                                                <a href="/account/history" class="btn btn-primary">Lịch sử giao dịch</a>
+                                                <a href="/card" class="btn btn-primary">Thông tin thẻ</a>
+                                                {{#if status}}
+                                                <button class="btn btn-danger" style="margin-top: 5px;" type="submit">KHÓA TÀI KHOẢN</button>
+                                                {{else}}
+                                                <button class="btn btn-danger" style="margin-top: 5px;" disabled>ĐÃ KHÓA TK</button>
+                                                {{/if}}
+                                            </form>
+                                            <hr>
+                                        </div>
+                                        <a href="/" class="btn btn-primary">Quay Về Trang Chủ</a>                                       
+                                </div>                             
+                            </div>                              
+                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-5">
+                  <div class="card bg-secondary border-0 mb-0">
+                    <div class="card-header bg-transparent pb-5">
+                         <div class="text-muted text-center mt-2 mb-3"><small></small></div>
+                         <div class="btn-wrapper text-center" style="height: auto;">
+                            {{#if status}}
+                                <h2 class="text-info">Nạp tiền vào tài khoản để nhận nhiều ưu đãi từ chương trình!!</h2>
+                                <h3 class="text-success">Nạp ngay!!!</h3>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <img src="/img/home/Paypal.png" style="margin-top:-20px;border:0;">
+                                    </div>
+                                    <div class="col-4">
+                                      <img src="/img/home/Stripe.png" style=" height:65px;border:0;">
+                                    </div>
+                                    <div class="col-4">
+                                      <img src="/img/home/zalopay.png" style=" height:65px;border:0;">
+                                    </div>
+                                </div>
+                         
+                                <form role="form" action="/pay/napTien" method="POST">
+                                     <div class="form-group mb-3">
+                                        <label class="control-label">Chọn phương thức nạp tiền</label>
+                                        <select class="example" name="phuongthuc">
+                                            <option name="" value="Paypal" selected><i class="fa fa-cc-paypal fa-2x" aria-hidden="true"></i> Paypal</option>
+                                            <option name="table1" value="Stripe"><i class="fa fa-cc-stripe fa-2x" aria-hidden="true"></i> Stripe</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label class="control-label"> Nhập số tiền</label>
+                                        <div class="input-group input-group-merge input-group-alternative">
+                                            <input  class="input-group input-group-merge input-group-alternative"placeholder=" Nhập số tiền" type="number" id="money" name="money" style="height:40px ;" required>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-primary" type="submit" >Nạp tiền</button>
+                                </form>                                  
+                            {{else}}
+                                <h2 class="text-danger"> Tài khoản của bạn <<đã bị khóa>>, vui lòng liên hệ quản trị viên để mở khóa và biết
+                                        thêm chi tiết!</h2>
+                            {{/if}}
+                         </div>
+                    </div>
+                   </div>
+            </div>
+         {{/with}}
+        </div>   
+    </div>
+</div>
+
+{{> footer}}

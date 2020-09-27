@@ -1,0 +1,142 @@
+
+{{>header}}
+<div class="main-content">
+  <!-- Header -->
+  <div class="header bg-gradient-primary py-7 py-lg-8 pt-lg-9">
+    <div class="container">
+      <div class="header-body text-center mb-7">
+        <div class="row justify-content-center">
+          <div class="col-xl-5 col-lg-6 col-md-8 px-5">
+            <h1 class="text-white">Xác nhận chuyển tiền</h1>
+            <h4>Vui lòng xem lại thông tin và xác nhận chuyển tiền!</h4>
+               {{#if message}}
+                    <h3 class="text-info">{{message}}</h3>
+                {{/if}} 
+          </div>
+        </div>
+      </div>
+            <div class="separator separator-bottom separator-skew zindex-100">
+                <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
+                </svg>
+            </div>
+        </div>
+    </div>
+    <div class="container mt--8 pb-5">
+         <div class="row justify-content-center">
+            {{!-- <form method="POST" action="/account/xacnhan"> --}}
+                {{#with Info}}
+                
+                    <div class="col-xl-5">
+                            <div class="card bg-secondary border-0 mb-0">
+                                <div class="card-header bg-transparent pb-5">
+                                        <div class="text-muted text-center mt-2 mb-3"><small></small></div>
+                                        <div class="btn-wrapper text-center" style="height: auto;">
+                                            <div class="row">
+                                                <div class="card-body px-lg-4 py-lg-4">
+                                                    <h2 class="text-info">Xác nhận chuyển tiền!</h2>
+                                                    <form role="form">
+                                                        <div class="form-group mb-3">
+                                                            <label class="control-label">Số thẻ nguồn</label>
+                                                            <div class="input-group input-group-merge input-group-alternative">
+                                                                <label class="form-control">{{fromCard}}</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group mb-3">
+                                                            <label class="control-label">Số thẻ đích</label>
+                                                            <div class="input-group input-group-merge input-group-alternative">
+                                                                <label class="form-control">{{toAccount}}</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group mb-3">
+                                                            <label class="control-label">Số tiền giao dịch</label>
+                                                            <div class="input-group input-group-merge input-group-alternative">
+                                                                <label class="form-control">{{money}}</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group mb-3">
+                                                            <label class="control-label">Tên người nhận</label>
+                                                            <div class="input-group input-group-merge input-group-alternative">
+                                                                <label class="form-control">{{toName}}</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group mb-3">
+                                                            <label  class="control-label">Nội dung giao dịch</label>
+                                                            <div class="input-group input-group-merge input-group-alternative">
+                                                                <textarea id="loiNhan" name="loiNhan" class="col-12 input-group input-group-merge input-group-alternative" disabled style="height: 100px;">{{loiNhan}}</textarea>    
+                                                            </div>
+                                                        </div>
+                                                    </form> 
+                                                    <a href="/" class="btn btn-primary" style="margin-top: 3px;">Về Trang Chủ</a>
+                                                </div>                                  
+                                            </div>                             
+                                        </div>                              
+                                </div>
+                            </div>
+                    </div>
+                    <div class="col-xl-5">
+                            <div class="card bg-secondary border-0 mb-0">
+                                <div class="card-header bg-transparent pb-5">
+                                        <div class="text-muted text-center mt-2 mb-3"><small></small></div>
+                                        <div class="btn-wrapper text-center" style="height: auto;">
+                                            <div class="row">
+                                                <div class="card-body px-lg-4 py-lg-4">
+                                                    <h2 class="text-info">Xác nhận chuyển tiền!</h2>
+                                                <form role="form" method="POST" action="/account/xacnhan">
+                                                    <div class="form-group mb-3">
+                                                        <label class="control-label">Số dư tài khoản</label>
+                                                        <div class="input-group input-group-merge input-group-alternative">
+                                                            <label class="form-control">{{soDuTK}}</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group mb-3">
+                                                        <label class="control-label">Ngân hàng</label>
+                                                        <div class="input-group input-group-merge input-group-alternative">
+                                                            <label class="form-control">{{bankName}}</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group mb-3">
+                                                        <label class="control-label">Phí giao dịch</label>
+                                                        <div class="input-group input-group-merge input-group-alternative">
+                                                            <label class="form-control">{{phiGiaoDich}}</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group mb-3">
+                                                        <label class="control-label">Bên trả phí</label>
+                                                        <div class="input-group input-group-merge input-group-alternative">
+                                                            <label class="form-control">{{nguoiTra}}</label>
+                                                        </div>
+                                                    </div> 
+                                                    
+                                                     <div class="form-group mb-3">
+                                                        <label class="control-label">Nhập mật khẩu xác nhận</label>
+                                                        <div class="input-group input-group-merge input-group-alternative">
+                                                            <input type="password" class="form-control" id="password" name="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'" required >
+                                                        </div>
+                                                    </div>
+                                                    {{#if xacThuc}}
+                                                    <div class="form-group mb-3">
+                                                        <label class="control-label">Nhập mã giao dịch</label>
+                                                        <div class="input-group input-group-merge input-group-alternative">
+                                                            <input type="text" class="form-control" id="otp" name="otp" placeholder="Mã giao dịch" onfocus="this.placeholder = ''" required >
+                                                        </div>
+                                                    </div>
+                                                    {{/if}}
+                                                     <div class="col-1"></div>
+                                                    <button type="submit" class="btn btn-success">Tiếp Tục Thanh Toán</button>
+                                                </form>                                                              
+                                                </div>
+                                            </div>
+                                        </div>
+                                </div>
+                            </div>
+                    </div>
+                    
+                {{/with}}
+            {{!-- </form> --}}
+        </div>   
+    </div>
+
+</div>
+
+{{> footer}}

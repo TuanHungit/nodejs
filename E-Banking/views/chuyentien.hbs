@@ -1,0 +1,172 @@
+{{> header}}
+<div class="main-content">
+    <!-- Header -->
+    <div class="header bg-gradient-primary py-7 py-lg-6 pt-lg-9">
+        <div class="container">
+            <div class="header-body text-center mb-7">
+                <div class="row justify-content-center">
+                    <div class="col-xl-5 col-lg-6 col-md-8 px-5">
+                        <h1 class="text-white">Chuyển tiền Online</h1>
+                        <h4>Nhanh chóng - An toàn!</h4>
+                        {{#if message}}
+                        <h3 class="text-info">{{message}}</h3>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+            <div class="separator separator-bottom separator-skew zindex-100">
+                <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
+                </svg>
+            </div>
+        </div>
+    </div>
+    <div class="container mt--8 pb-5">
+        <div class="row justify-content-center">
+            <div class="col-xl-5">
+                <div class="card bg-secondary border-0 mb-0">
+                    <div class="card-header bg-transparent pb-5">
+                        <div class="text-muted text-center mt-2 mb-3"><small></small></div>
+                        <div class="btn-wrapper text-center" style="height: auto;">
+                            {{#with Account}}
+                            <div class="row">
+                                <div class="card-body px-lg-4 py-lg-4">
+                                    <form method="POST" action="/account/chuyentien">
+                                        <h4 class="text-primary" style="text-align: center;">Tài khoản nguồn:</h4>
+                                        <div class="form-group mb-3">
+                                            <label class="control-label">Chọn thẻ:</label>
+                                            <!--<label class="form-control col-4">{{accountNumber}}</label>-->
+                                            <div class="input-group input-group-merge input-group-alternative">
+                                                <select
+                                                    class="custom-select input-group input-group-merge input-group-alternative"
+                                                    id="fromCardNumber" name="fromCardNumber">
+                                                    <option selected value="0">Chọn...</option>
+                                                    {{#each CreditCards}}
+                                                    {{#if status}}
+                                                    <option value="{{cardNumber}}">{{cardNumber}}</option>
+                                                    {{/if}}
+                                                    {{/each}}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label class="control-label">Số dư TK:</label>
+                                            <div class="input-group input-group-merge input-group-alternative">
+                                                <label
+                                                    class="form-control col-12 input-group input-group-merge input-group-alternative"
+                                                    style="color:black"><b>{{balance}} VND</b></label>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group mb-3">
+                                            <br>
+                                            <h4 class="text-primary" style="text-align: center;">Tài khoản đích:</h4>
+
+                                        <div class="form-group mb-3">
+                                            <label class="control-label">Số tài khoản người nhận:</label>
+                                            <div class="input-group input-group-merge input-group-alternative">
+                                                <input type="number" id="toAccount" name="toAccount"
+                                                    class="col-12 input-group input-group-merge input-group-alternative"
+                                                    style="height: 45px;">
+                                            </div>
+
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label class="control-label">Tên chủ thẻ:</label>
+                                            <div class="input-group input-group-merge input-group-alternative">
+                                                <input type="text" id="tenChuThe" name="tenChuThe"
+                                                    class="col-12 input-group input-group-merge input-group-alternative"
+                                                    style="height: 45px;">
+                                            </div>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label class="control-label">Chọn ngân hàng:</label>
+                                            <div class="input-group input-group-merge input-group-alternative">
+                                                <select
+                                                    class="custom-select col-12 input-group input-group-merge input-group-alternative"
+                                                    id="toBank" name="toBank">
+                                                    <option selected value="Intech Bank">Intech Bank (nội bộ)
+                                                    </option>
+                                                    <option value="Sym Bank">Sym Bank</option>
+                                                    <option value="Fintech Bank">Fintech Bank</option>
+                                                    <option value="SacomBank">SacomBank</option>
+                                                    <option value="Cyber Bank">Cyber Bank</option>
+                                                    <option value="QMBank">QMBank</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <br>
+                                            <h4 class="text-primary" style="text-align: center;">Thông tin chuyển khoản:
+                                            </h4>
+                                            <label class="control-label">Số tiền chuyển:</label>
+                                            <div class="input-group input-group-merge input-group-alternative">
+                                                <input type="number" id="soTien" name="soTien"
+                                                    class="col-12 input-group input-group-merge input-group-alternative"
+                                                    value="0.0" step="0.01" style="height: 45px;">
+                                            </div>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label class="control-label">Nội dung giao dịch:</label>
+                                            <div class="input-group input-group-merge input-group-alternative">
+                                                <textarea id="loiNhan" name="loiNhan"
+                                                    class="col-12 input-group input-group-merge input-group-alternative"
+                                                    style="height: 100px;"></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group mb-3">
+                                            <label class="control-label">Người trả phí:</label>
+                                            <div class="input-group input-group-merge input-group-alternative">
+                                                <select id="nguoiTra" name="nguoiTra" class="custom-select col-12"
+                                                    id="fromcard">
+                                                    <option selected value="Người chuyển">Người chuyển trả</option>
+                                                    <option value="Người nhận">Người nhận trả</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <div class="control-label">
+                                                <input class="control-label" type="checkbox" name="checkEmail"
+                                                    value="checkEmail">Nhận email kết quả giao dịch
+                                            </div>
+                                            <div class="input-group input-group-merge input-group-alternative">
+                                                <input type="email" id="email" name="email"
+                                                    class="col-12 input-group input-group-merge input-group-alternative"
+                                                    style="height: 45px;">
+                                            </div>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <br>
+                                            <h4 class="text-primary" style="text-align: center;">Phương pháp xác thực:
+                                            </h4>
+                                            <label class="control-label">Chọn phương pháp xác thực:</label>
+                                            <div class="input-group input-group-merge input-group-alternative">
+                                                <select
+                                                    class="custom-select col-12 input-group input-group-merge input-group-alternative"
+                                                    id="xacthuc" name="xacthuc">
+                                                    <option selected value="password">Mật khẩu tĩnh</option>
+                                                    <option value="otp">Mật khẩu tĩnh + OTP Email</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <div class="input-group input-group-merge input-group-alternative">
+                                                <button type="submit" class="btn btn-success">Tiếp Tục Thanh
+                                                    Toán</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <a href="/" class="btn btn-primary">Quay Về Trang Chủ</a>
+                                </div>
+                            </div>
+                            {{/with}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{>footer}}

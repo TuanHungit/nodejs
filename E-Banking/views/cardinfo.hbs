@@ -1,0 +1,124 @@
+{{>header}}
+<div class="main-content">
+    <!-- Header -->
+    <div class="header bg-gradient-primary py-7 py-lg-8 pt-lg-9">
+        <div class="container">
+            <div class="header-body text-center mb-2">
+                <div class="row justify-content-center">
+                    <div class="col-xl-5 col-lg-6 col-md-8 px-5">
+                        <h1 class="text-white">Thẻ Ngân Hàng Của Bạn</h1>
+                        {{#if message}}
+                        <h3 class="text-info">{{message}}</h3>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+            <div class="separator separator-bottom separator-skew zindex-100">
+                <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
+                </svg>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row col-12">
+        <div class="col-2">
+        </div>
+        <div class="col-8">
+            <table class="table table-hover table-light">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Mã số thẻ</th>
+                        <th scope="col">Loại thẻ</th>
+                        <th scope="col">Ngày cấp</th>
+                        <th scope="col">Ngày hết hạn</th>
+                        <th scope="col">Trạng thái</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each Cards}}
+                    <tr>
+                        <td>{{cardNumber}}</td>
+                        <td>{{issuingNetwork}}</td>
+                        <td>{{provideDate}}</td>
+                        <td>{{expirationDate}}</td>
+                        {{#if status}}
+                        <td class="text-success"><b>Hoạt Động</b></td>
+                        <td>
+                            <form onSubmit="return confirm('Bạn có chắc không??');" method="POST"
+                                action="/card/disable/{{id}}">
+                                <button class="btn btn-danger col-6" type="submit">Vô hiệu hóa</button>
+                                <a href="/giahan/{{id}}" class="btn btn-primary col-6">Gia hạn</a>
+                            </form>
+                        </td>
+                        {{else}}
+                        <td class="text-danger"><b>Vô hiệu hóa</b></td>
+                        <td>
+                            <form onSubmit="return confirm('Bạn có chắc không??');" method="POST"
+                                action="/card/enable/{{id}}">
+                                <button class="btn btn-success col-6" type="submit">Kích hoạt</button>
+                                <a href="/giahan/{{id}}" class="btn btn-primary col-6">Gia hạn</a>
+                            </form>
+                        </td>
+                        {{/if}}
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+            <div class="col-4">
+                <button onclick="myFunction()" class="btn btn-secondary" style="margin-bottom: 10px;">Yêu Cầu Cấp
+                    Thẻ</button>
+            </div>
+            <div class="form-group" id="myDIV" style="display: none;">
+                <h2 class="text-info">Các loại thẻ hỗ trợ</h2>
+                <div class="row">
+                    <div class="col-4">
+                        <img src="/img/home/jcb.JPG">
+                    </div>
+                    <div class="col-4">
+                        <img src="/img/home/master.JPG">
+                    </div>
+                    <div class="col-4">
+                        <img src="/img/home/visa.png">
+                    </div>
+                </div>
+                <hr>
+                <form onSubmit="return confirm('Tạo thẻ ngân hàng mới?');" method="POST" action="/capthe">
+                    <div class="form-inline">
+                        <label class="col-2" for="fromcard">Chọn loại thẻ:</label>
+                        <select class=" col-4" id="typeCard" name="typeCard">
+                            <option selected value="Visa">Visa</option>
+                            <option value="MasterCard">Mastercard</option>
+                            <option value="JCB">JCB</option>
+                        </select>
+                    </div>
+                    <div class="form-inline">
+                        <label class="col-2">Lý do cấp:</label>
+                        <textarea id="message" name="message" class="col-4">Xin nhẹ cái thẻ :)</textarea>
+                    </div>
+                    <hr>
+                    <button class="btn btn-success col-4" type="submit">Gửi Yêu Cầu</button>
+                    <a style="margin-top: 5px;" href="/account" class="btn btn-primary">Quay Về Tài Khoản</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function conf() {
+        if (window.confirm("Tạo thẻ ngân hàng mới?")) {
+            window.location.href = '/card/addcard'
+        }
+    }
+    function myFunction() {
+        var x = document.getElementById("myDIV");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+</script>
+{{> footer }}

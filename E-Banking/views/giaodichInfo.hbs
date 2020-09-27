@@ -1,0 +1,165 @@
+<div class="row col-12">
+    <div class="col-2"></div>
+    <div class="col-8">
+        <br/>
+        <br/>
+        <br/>
+        <h2 class="text-info"> Thông tin chi tiết giao dịch...</h2>
+        <h3 class="text-info">{{message}}</h3>
+        <hr>
+    </div>
+</div>
+
+{{#with GiaoDichs}}
+{{#each list}}
+<div class="row">
+    <div class="col-2"></div>
+
+    <div class="col-4">
+        <h3>Thông tin người gửi </h3>
+        <br/>
+        <div class="form-group row">
+            <div class="col-4">
+                <label class="control-label">Tên người gửi:</label>
+            </div>
+            <div class="col-8">
+
+                <label class="form-control">{{tenNguoiGui}}</label>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-4">
+                <label class="control-label">Tài khoản gửi: </label>
+            </div>
+            <div class="col-8">
+                <label class="form-control">{{tkNguon}}</label>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-4">
+                <label class="control-label">Số thẻ: </label>
+            </div>
+            <div class="col-8">
+                <label class="form-control">{{theNguon}}</label>
+            </div>
+        </div>
+        <hr>
+    </div>
+
+    <div class="col-1"></div>
+    <div class="col-4">
+        <h3>Thông tin người nhận </h3>
+        <br/>
+        <div class="form-group row">
+            <div class="col-4">
+                <label class="control-label">Tên người nhận:</label>
+            </div>
+            <div class="col-8">
+
+                <label class="form-control">{{tenNguoiNhan}}</label>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-4">
+                <label class="control-label">Tài khoản nhận: </label>
+            </div>
+            <div class="col-8">
+                <label class="form-control">{{tkDich}}</label>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-4">
+                <label class="control-label">Số thẻ: </label>
+            </div>
+            <div class="col-8">
+                <label class="form-control">{{theDich}}</label>
+            </div>
+        </div>        
+        <hr>
+    </div>
+    
+</div>
+<div class="row">
+    <div class="col-2"></div>
+
+    <div class="col-4">
+        <h3>Chi Tiết </h3>
+        <br/>
+        <div class="form-group row">
+            <div class="col-4">
+                <label class="control-label">Số giao dịch:</label>
+            </div>
+            <div class="col-8">
+
+                <label class="form-control">{{id}}</label>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-4">
+                <label class="control-label">Số tiền chuyển: </label>
+            </div>
+            <div class="col-8">
+                <label class="form-control">{{soTien}} VND</label>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-4">
+                <label class="control-label">Ngân hàng chuyển: </label>
+            </div>
+            <div class="col-8">
+                <label class="form-control">{{nganHang}}</label>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-4">
+                <label class="control-label">Nội dung giao dịch:</label>
+            </div>
+            <div class="col-8">
+
+                <label class="form-control" style="width:300%">{{tinNhan}}</label>
+            </div>
+        </div>
+
+        <hr>
+        <a href="/admin/listgiaodich" class="btn btn-primary">Quay lại danh sách giao dịch</a>
+    </div>
+
+    <div class="col-1"></div>
+
+    <div class="col-4">    
+        <h3>    </h3>
+        <br/>   
+        <br/> 
+        <div class="form-group row">
+            <div class="col-4">
+                <label class="control-label">Người trả phí:</label>
+            </div>
+            <div class="col-8">
+                <label class="form-control">{{nguoiTraPhi}}</label>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-4">
+                <label class="control-label">Ngày chuyển:</label>
+            </div>
+            <div class="col-8">
+                <label class="form-control">{{createdAt}}</label>
+            </div>
+        </div>
+        
+        
+    </div>
+    
+</div>
+
+
+{{/each}}
+{{/with}}

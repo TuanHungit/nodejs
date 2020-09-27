@@ -1,0 +1,39 @@
+{{> header }}
+<!--================Login Box Area =================-->
+ <div class="inner-banner-w3ls py-5" id="home">
+    <div class="container py-xl-5 py-lg-3">
+        <div class=" w3l-login-form">
+            <h2 class="login">Đăng nhập</h2>
+             <form action="/users/login" id="contactForm" method="POST">
+                {{#if message}}
+                    <div class="form-group alert {{type}}">
+                        <strong>{{message}}</strong>
+                    </div>
+                {{/if}}
+                <div class=" w3l-form-group">
+                    <label>Tên đăng nhập</label>
+                    <div class="group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" class="form-control" id="accountNumber" name="accountNumber"  placeholder="Tên đăng nhập" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Số tài khoản'">
+                    </div>
+                </div>
+                <div class=" w3l-form-group">
+                    <label>Mật khẩu</label>
+                    <div class="group">
+                        <i class="fas fa-unlock"></i>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Mật khẩu" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Mật khẩu'" >
+                    </div>
+                </div>
+                <div class="forgot">
+                    <a href="/users/forgotPassword">Quên mật khẩu?</a>
+                    <p><input type="checkbox">Nhớ đăng nhập</p>
+                </div>
+                <button type="submit" value="submit">Đăng nhập</button>
+            </form>
+            <p class=" w3l-register-p">Chưa có tài khoản?<a href="/users/register" class="register"> Đăng ký</a></p>
+        </div>
+    </div>
+</div>
+
+<!--================End Login Box Area =================-->
+{{> footer }}

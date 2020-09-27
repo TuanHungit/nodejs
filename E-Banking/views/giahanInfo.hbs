@@ -1,0 +1,108 @@
+{{>header}}
+<div class="main-content">
+  <!-- Header -->
+  <div class="header bg-gradient-primary py-7 py-lg-8 pt-lg-9">
+    <div class="container">
+      <div class="header-body text-center mb-2">
+        <div class="row justify-content-center">
+          <div class="col-xl-5 col-lg-6 col-md-8 px-5">
+            <h1 class="text-white">Thẻ Ngân Hàng Của Bạn</h1>
+            <h3 class="{{type}}">{{message}}</h3>
+          </div>
+        </div>
+      </div>
+        <div class="separator separator-bottom separator-skew zindex-100">
+            <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
+            </svg>
+        </div>
+    </div>
+</div>
+<br/>
+<div class="row col-12">
+    <div class="col-2">
+    </div>
+    <div class="col-8">
+        <table class="table table-hover table-light">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Mã số thẻ</th>
+                    <th scope="col">Loại thẻ</th>
+                    <th scope="col">Ngày cấp</th>
+                    <th scope="col">Ngày hết hạn</th>
+                    <th scope="col">Trạng thái</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#with Card}}
+                <tr>
+                    <td>{{cardNumber}}</td>
+                    <td>{{issuingNetwork}}</td>
+                    <td>{{provideDate}}</td>
+                    <td>{{expirationDate}}</td>
+                    {{#if status}}
+                    <td class="text-success"><b>Hoạt động</b></td>
+                    {{else}}
+                    <td class="text-danger"><b>Vô hiệu hóa</b></td>
+                    {{/if}}
+                </tr>
+                {{/with}}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-2">
+    </div>
+    <div class="row col-8">
+        <hr>
+        <div>
+            <h2 class="text-primary col-0" style="text-align:center; ">Chọn gói gia hạn:</h2>
+            <form onSubmit="return confirm('Gia hạn thẻ của bạn?');" method="POST" action="/giahan/{{Card.cardNumber}}">
+                <select class="col-12" id="goi" name="goi">
+                    <option selected value="0">Chọn gói...</option>
+                    {{#each GoiCuoc}}
+                    <option value="{{soThang}}">{{soThang}} tháng - {{chiPhi}}$</option>
+                    {{/each}}
+                </select>
+                &nbsp;
+                <button class="btn btn-success col-8" type="submit">Xác nhận gia hạn</button>
+                <a href="/passbook" class="btn btn-primary" style="margin-top: 3px;">Quay lại</a>
+            </form>
+        </div>
+
+        <hr>
+        <div class="form-inline">
+            <div class="col-12">
+                <h2 class="text-primary col-12" style="text-align: center;">Bảng gói cước gia hạn thẻ</h2>
+            </div>
+            <div class="col-12">
+                <table class="myTable table table-hover table-light">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col"><b>Gói cước</b></th>
+                            <th scope="col"><b>Chi phí</b></th>
+                            <th scope="col"><b>Ưu đãi</b></th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="myTable">
+                        {{#each GoiCuoc}}
+                        <tr>
+                            <td>{{soThang}} Tháng</td>
+                            <td>{{chiPhi}}$</td>
+                            <td>{{giamGia}}</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+    </div>
+    
+</div>
+
+<br/>
+{{> footer }}

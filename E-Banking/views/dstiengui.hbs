@@ -1,0 +1,74 @@
+{{> header}}
+<div class="main-content">
+  <!-- Header -->
+  <div class="header bg-gradient-primary py-7 py-lg-6 pt-lg-9">
+    <div class="container">
+      <div class="header-body text-center mb-4">
+        <div class="row justify-content-center">
+          <div class="col-xl-5 col-lg-6 col-md-6 px-5">
+            <h1 class="text-white">Sổ Tiết Kiệm Của Bạn</h1>
+            {{#if message}}
+            <h3 class="{{type}}">{{message}}</h3>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="separator separator-bottom separator-skew zindex-100">
+      <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1"
+        xmlns="http://www.w3.org/2000/svg">
+        <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
+      </svg>
+    </div>
+</div>
+<br/>
+<div class="row">
+    <div class="col-2">
+    </div>
+    <div class="col-8">
+        <table class="table table-hover table-light">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Mã sổ</th>
+                    <th scope="col">Số tiền gửi</th>
+                    <th scope="col">Ngày gửi</th>
+                    <th scope="col">Kỳ hạn</th>
+                    <th scope="col">Lãi suất</th>
+                    <th scope="col">Chi tiết</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each dataPassbook}}
+                <tr>
+                    <td>{{id}}</td>
+                    <td>{{balance}} VND</td>                  
+                    <td>{{startDate}}</td>
+                    <td>{{goi}} Tháng</td>
+                    <td>{{period}} %</td>
+                    <td><a href="/passbook/detail/{{id}}">Chi tiết</a></td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        <div class="form-group">
+            {{!-- <a onclick="conf()" class="btn btn-success">Add Credit Card</a>
+            <br/><br/> --}}
+            <a onclick="conf1()" class="btn btn-success">Mở sổ tiết kiệm</a>
+            <br/><br/>
+            <a href="/" class="btn btn-primary">Quay về trang chủ</a> 
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function conf() {
+        if (window.confirm("Tạo thẻ tín dụng mới?")) {
+            window.location.href = '/passbook/addcard'
+        }
+    }
+    function conf1() {
+        if (window.confirm("Bạn muốn mở sổ tiết kiệm mới đúng không?")) {
+            window.location.href = '/passbook/addpassbooknew'
+        }
+    }
+</script>
+{{> footer}}

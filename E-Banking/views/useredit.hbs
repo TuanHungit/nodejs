@@ -1,0 +1,113 @@
+{{> header}}
+<div class="main-content">
+  <!-- Header -->
+  <div class="header bg-gradient-primary py-7 py-lg-6 pt-lg-9">
+    <div class="container">
+      <div class="header-body text-center mb-7">
+        <div class="row justify-content-center">
+          <div class="col-xl-5 col-lg-6 col-md-8 px-5">
+            <h1 class="text-white">Sửa thông tin</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="separator separator-bottom separator-skew zindex-100">
+      <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1"
+        xmlns="http://www.w3.org/2000/svg">
+        <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
+      </svg>
+    </div>
+  </div>
+  <!-- Page content -->
+  <div class="container mt--8 pb-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-5 col-md-7">
+        <div class="card bg-secondary border-0 mb-0">
+          <div class="card-header bg-transparent pb-3">
+            <div class="text-muted text-center mt-2 mb-3"><small></small></div>
+            <div class="btn-wrapper text-center">
+            {{#if message}}
+            <h2 class="text-info">{{message}}</h2>
+            {{/if}}
+            </div>
+          </div>
+          <div class="card-body px-lg-4 py-lg-4">
+          {{#with UserDetails}}
+          <form onSubmit="return confirm('Bạn có chắc muốn cập nhật?');" method="POST" action="/users/useredit">
+            <div class="col-12 form-group row-12">
+              <label class="control-label">Họ và Tên</label>
+                <input type="text" class="form-control" id="fullname" name="fullname" value="{{fullname}}"
+                    placeholder="Full Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Họ và Tên'">
+            </div>
+            <div class="col-12 form-group row-12">
+              <label for="dateofbirth">Số Điện Thoại</label>
+                <input type="text" class="form-control" id="phone" name="phone" value="{{phone}}"
+                    placeholder="Phone Number" onfocus="this.placeholder = ''"
+                    onblur="this.placeholder = 'Số Điện Thoại'">
+            </div>
+            <div class="col-12 form-group row-12">
+              <label for="dateofbirth">Số CMND</label>
+                <input type="text" class="form-control" id="identity" name="identity" value="{{identity}}"
+                    placeholder="Identity Number" onfocus="this.placeholder = ''"
+                    onblur="this.placeholder = 'Số CMND'">
+            </div>
+            <div class="col-12 form-group row-12">
+              <label for="dateofbirth">Địa chỉ</label>
+                <input type="text" class="form-control" id="address" name="address" value="{{address}}"
+                    placeholder="Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Địa chỉ'">
+            </div>
+            <div class="col-12 form-group row-12">
+              <div>
+                <label for="dateofbirth">Giới Tính</label>
+                {{#if gender}}
+                <input type="checkbox" class="form-control" id="gender" name="gender" placeholder="Gender" checked
+                    onfocus="this.placeholder = ''" onblur="this.placeholder = 'Gender'">
+                {{else}}
+                <input type="checkbox" class="form-control" id="gender" name="gender" placeholder="Gender"
+                    onfocus="this.placeholder = ''" onblur="this.placeholder = 'Gender'">
+                {{/if}}
+                <label for="gender" text-align="center">Nam</label>
+              </div>
+            </div>
+            <div class="col-md-12 form-group row-12">
+              <div>
+                  <label for="dateofbirth">Ngày Sinh</label>
+                  <input type="date" class="form-control" id="dateofbirth" name="dateofbirth" value="{{dateofbirth}}"
+                      placeholder="Date Of Birth" onfocus="this.placeholder = ''"
+                      onblur="this.placeholder = 'Ngày Sinh'">
+              </div>
+            </div>
+            <div class="btn-wrapper text-center">
+              <div class="form-group">
+                <input type="submit" value="Cập nhật" class="btn btn-primary" />
+                <a class="btn btn-success" href="/users">Trở Về</a>
+              </div>
+            </div>
+          </form>
+          {{/with}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+    function conf() {
+        if (window.confirm("Tạo thẻ tín dụng mới?")) {
+            window.location.href = '/creditcard/addcreditcard'
+        }
+    }
+    function validate(form) {
+
+        // validation code here ...
+        if (!valid) {
+            alert('Vui lòng sửa các lỗi trong mẫu!');
+            return false;
+        }
+        else {
+            return confirm('Bạn có thật sự muốn gửi biểu mẫu?');
+        }
+    }
+</script>
+{{> footer }}

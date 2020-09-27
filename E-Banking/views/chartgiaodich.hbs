@@ -1,0 +1,120 @@
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+ {{!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> --}}
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.js"></script>
+
+</head>
+<br/>
+<br/>
+<div class="container">
+    <canvas id="myChart"></canvas>
+</div>
+<br/>
+<br/>
+<div class="container">
+    <a class="btn btn-primary" href="/admin/listgiaodich" >Quay lại danh sách giao dịch</a>
+</div>
+<br/>
+<br/>
+
+{{#with ThongKeGiaoDich}}
+<div class="col-8" hidden>
+        <table class="table" id="dataTable">
+            <thead>
+                <tr>
+                    <th scope="col">month</th>
+                    <th scope="col">soGiaoDich</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each list}}
+                <tr>
+                    <td>{{month}}</td>
+                    <td>{{soGiaoDich}}</td>                  
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>        
+</div>
+
+<script>
+
+    var table = document.getElementById('dataTable');
+    var json = []; // First row needs to be headers 
+    var headers =[];
+    for (var i = 0; i < table.rows[0].cells.length; i++) {
+      headers[i] = table.rows[0].cells[i].innerHTML;
+    }
+
+    // Go through cells 
+    for (var i = 1; i < table.rows.length; i++) {
+      var tableRow = table.rows[i];
+      var rowData = {};
+      for (var j = 0; j < tableRow.cells.length; j++) {
+        rowData[headers[j]] = tableRow.cells[j].innerHTML;
+      }
+
+      json.push(rowData);
+    }
+
+    var labels = json.map(function (e) {
+      return e.month;
+    });
+    console.log(labels); // ["2016", "2017", "2018", "2019"]
+
+    // Map JSON values back to values array
+    var values = json.map(function (e) {
+      return e.soGiaoDich;
+    });
+
+    var chart = BuildChart(labels, values);
+
+    function BuildChart(labels, values) {
+      var ctx = document.getElementById("myChart").getContext('2d');
+      var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: labels, // Our labels
+          datasets: [{
+            label: 'Số lượng giao dịch', 
+            data: values, // Our values
+            backgroundColor: 'rgba(255, 99, 132, 0.6)',
+            borderColor: 'blue',
+            borderWidth: 1 
+          }]
+        },
+        options:{
+        title:{
+          display:true,
+          text:'Biểu đồ số lượng giao dịch',
+          fontSize:25
+        },
+        legend:{
+          display:true,
+          position:'right',
+          labels:{
+            fontColor:'#000'
+          }
+        },
+        layout:{
+          padding:{
+            left:50,
+            right:0,
+            bottom:0,
+            top:0
+          }
+        },
+        tooltips:{
+          enabled:true
+        }
+      }
+      });
+      return myChart;
+    }
+
+   
+  </script>
+
+
+
+{{/with}}

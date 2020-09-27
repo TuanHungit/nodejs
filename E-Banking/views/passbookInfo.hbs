@@ -1,0 +1,224 @@
+<script language="javascript">
+    
+    function tinhTienLai() 
+    {
+        var goi = document.getElementById("goi").innerHTML;
+        var balance = document.getElementById("balance").innerHTML;
+        var period = document.getElementById("period").innerHTML;
+        var startDate = new Date(document.getElementById("startDate").value);
+        var endDate = new Date(document.getElementById("endDate").value);
+        var result = document.getElementById("result");
+
+
+        var laisuat = parseFloat(period/100).toFixed(3);
+        var soNam=((endDate.getFullYear())-(startDate.getFullYear()));
+        var soThang=((endDate.getMonth())-(startDate.getMonth()));
+        var soNgay=((endDate.getDate())-(startDate.getDate()));
+        soThang = parseInt(soThang) + parseInt(soNam*12);
+        soNgay = parseInt(soNgay) + parseInt(soThang*30);
+
+        var SoKy = parseFloat(soNgay/(goi*30));
+        var SoNgayGoi = parseFloat(goi*30);
+
+        var total = balance;
+       
+        
+        if(soNgay > SoNgayGoi)
+        {        
+            for (var i =1; i < SoKy; )
+            {
+                total = parseFloat(total)+parseFloat(total*laisuat/12*goi);
+                soNgay = soNgay - SoNgayGoi;
+                SoKy = parseFloat(soNgay/(goi*30));
+            }             
+        }
+        if (soNgay == SoNgayGoi)
+        {
+            total = parseFloat(total)+parseFloat(total*laisuat/12*goi);
+        }
+        if (SoKy < 1)
+        {
+            total = parseFloat(total)+parseFloat(total*0.001/360*soNgay);                    
+        }
+        var total = parseFloat(total).toFixed(3);
+        //result.innerHTML = startDate;
+        result.innerHTML = parseFloat(total - balance).toFixed(3);
+
+        $(function(){
+            $('#ketqua').val(function( index, value ) {            
+                return value + total ;
+            });
+        });
+    } 
+
+</script>
+{{> header}}
+<div class="main-content">
+<!-- Header -->
+<div class="header bg-gradient-primary py-7 py-lg-6 pt-lg-9">
+<div class="container">
+    <div class="header-body text-center mb-5">
+    <div class="row justify-content-center">
+        <div class="col-xl-6 col-lg-6 col-md-8 px-5">
+        <h1 class="text-white">Thông tin chi tiết sổ tiết kiệm</h1>
+        </div>
+    </div>
+    </div>
+    <div class="separator separator-bottom separator-skew zindex-100">
+        <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
+        </svg>
+    </div>
+    </div>
+</div>
+
+<div class="row col-12">
+    <div class="col-2"></div>
+    <div class="col-12">
+        <br/>
+        {{#if message}}
+        <h3 class="{{type}}">{{message}}</h3>
+        {{/if}}
+        <hr>
+    </div>
+</div>
+    
+{{#with Passbook}}
+<form onSubmit="return confirm('Bạn có chắc chắn rút sổ tiết kiệm này không ?');" method="POST" action="/passbook/detail/{{id}}/ruttien">
+<div class="row">
+    <div class="col-2">
+    </div>
+    
+        <div class="col-4">
+            <div class="form-group row">
+                <div class="col-4">
+                    <label class="control-label">Họ tên:</label>
+                </div>
+                <div class="col-7">
+                    <label class="form-control">{{User.fullname}}</label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label class="control-label"> Email: </label>
+                </div>
+                <div class="col-7">
+                    <label class="form-control">{{User.username}}</label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label class="control-label"> Số điện thoại: </label>
+                </div>
+                <div class="col-7">
+                    <label class="form-control">{{User.phone}} </label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label class="control-label"> Số CMND: </label>
+                </div>
+                <div class="col-7">
+                    <label class="form-control">{{User.identity}} </label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label class="control-label"> Mã sổ tiết kiệm: </label>
+                </div>
+                <div class="col-7">
+                    <label class="form-control" id="idPB" name="idPB">{{id}}</label>
+                </div>
+            </div>
+
+            <hr>
+            <div class="form-group">
+                <a class="btn btn-primary" href="/passbook">Quay lại danh sách sổ tiết kiệm</a>
+            </div>
+        </div>
+
+        <div class="col-6">            
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label class="control-label"> Số tiền gửi tiết kiệm: </label>
+                </div>
+                <div class="col-4">
+                    <label class="form-control">{{balance}} VND</label>
+                    <label class="form-control" id="balance" name="balance" hidden>{{balance}}</label>
+                </div>
+            </div>
+            
+            <div class="form-group row">
+                <div class="col-4">
+                    <label class="control-label"> Gói gửi: </label>
+                </div>
+                <div class="col-4">
+                    <label class="form-control">{{goi}} Tháng</label>
+                    <label class="form-control" id="goi" name="goi" hidden>{{goi}}</label>
+                </div>
+            </div>
+        
+            <div class="form-group row">
+                <div class="col-4">
+                    <label class="control-label"> Lãi suất: </label>
+                </div>
+                <div class="col-md-4" >
+                    <label class="form-control" >{{period}} %</label>  
+                    <label class="form-control" id="period" name="period" hidden>{{period}}</label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label class="control-label"> Ngày gửi: </label>
+                </div>
+                <div class="col-4">
+                    <label class="form-control">{{startDate}}</label>  
+                    <input type="date" class="form-control" id="startDate" name="startDate" value="{{startDate}}" hidden>                  
+                </div>
+            </div>
+        
+            <div class="form-group row">
+                <div class="col-4">
+                    <label class="control-label"> Ngày rút (ngày hiện tại): </label>
+                </div>
+                <div class="col-4">
+                    <label class="form-control">
+                        <script> document.write(new Date().toLocaleDateString()); </script>
+                    </label>
+                    <input type="date" class="form-control" id="endDate" name="endDate" hidden> 
+                    <script > 
+                        document.getElementById('endDate').value = new Date().toISOString().substring(0, 10);
+                    </script>
+                </div>
+            </div>
+            
+            <hr>
+            <input class="btn btn-success col-4" type="button" value="Tính Lãi" onclick="tinhTienLai()" />
+            <lable class="col-1">Số tiền lãi nhận được là: </lable>
+            <lable class="col-5" id="result" name="result"></lable>
+            <lable class="col-1">VND</lable>
+            <input type="text" class="form-control" id="ketqua" name="ketqua" value="" hidden>
+            <hr>
+            <button class="btn btn-success col-4" type="submit" >Xác nhận rút tiền</button>
+            <div class="row col-12">
+            <div class="col-2"></div>
+            <div class="col-12">
+                <br/>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+
+{{/with}}
+<script src="https://code.jquery.com/jquery-latest.js"></script>
+ <script language="JavaScript" >
+   
+ </script>
+ {{> footer}}

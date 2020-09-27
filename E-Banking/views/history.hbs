@@ -1,0 +1,219 @@
+<style>
+    /* Style the tab */
+    .tab {
+        overflow: hidden;
+    }
+
+    /* Style the buttons inside the tab */
+    .tab button {
+        background-color:rgb(45, 148, 134);
+        float: left;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 14px 16px;
+        transition: 0.3s;
+        font-size: 17px;
+        margin-bottom: 5px;
+        margin-right: 10px;
+    }
+
+    /* Change background color of buttons on hover */
+    .tab button:hover {
+        background-color:cornflowerblue;
+    }
+
+    /* Create an active/current tablink class */
+    .tab button.active {
+        background-color:cornflowerblue;
+    }
+
+    /* Style the tab content */
+    .tabcontent {
+        display: none;
+        padding: 6px 12px;
+        border: 1px solid #ccc;
+        border-top: none;
+    }
+
+</style>
+<script>
+    function openCity(evt, cityName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+</script>
+
+{{> header}}
+<div class="main-content">
+  <!-- Header -->
+  <div class="header bg-gradient-primary py-7 py-lg-6 pt-lg-9">
+    <div class="container">
+      <div class="header-body text-center mb-3">
+        <div class="row justify-content-center">
+          <div class="col-xl-8 col-lg-6 col-md-8 px-5">
+            <h1 class="text-white">Lịch sử giao dịch của bạn...</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="separator separator-bottom separator-skew zindex-100">
+      <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1"
+        xmlns="http://www.w3.org/2000/svg">
+        <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
+      </svg>
+    </div>
+  </div>
+
+<h3 class="text-info">{{message}}</h3>
+
+<div class="row">
+    <div class="col-2">
+    </div>
+    <div class="tab col-8">
+        <div class="row">
+            <button class="tablinks col-2" id="bn" onclick="openCity(event, 'chuyendi')">Chuyển đi</button>
+            <button class="tablinks col-2" id="bn" onclick="openCity(event, 'chuyenden')">Chuyển đến</button>
+            <button class="tablinks col-2" id="bn" onclick="openCity(event, 'giahan')">Gia hạn thẻ</button>
+            <button class="tablinks col-2" id="bn" onclick="openCity(event, 'naptien')">Nạp tiền</button>
+            <a class="btn btn-primary col-4" style="margin-bottom: 10px;" id="bn" href="/account">Quay Về Tài Khoản</a>
+        </div>
+        
+    </div>
+</div>
+{{#with Historys}}
+<div id="chuyendi" class="tabcontent">
+    <div class="row">
+        <div class="col-2">
+        </div>
+        <div class="col-8">
+            <table class="table table-hover table-light">
+                <thead>
+                    <tr>
+                        <th scope="col">Số TK người nhận</th>
+                        <th scope="col">Tên người nhận</th>
+                        <th scope="col">Số tiền</th>
+                        <th scope="col">Ngân hàng</th>
+                        <th scope="col">Nội dung</th>
+                        <th scope="col">Ngày gửi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each chuyendi}}
+                    <tr>
+                        <td>{{tkDich}}</td>
+                        <td>{{tenNguoiNhan}}</td>
+                        <td>{{soTien}}NVD</td>
+                        <td>{{nganHang}}</td>
+                        <td>{{tinNhan}}</td>
+                        <td>{{createdAt}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="chuyenden" class="tabcontent">
+    <div class="row">
+        <div class="col-2">
+        </div>
+        <div class="col-8">
+            <table class="table table-hover table-light">
+                <thead>
+                    <tr>
+                        <th scope="col">Số TK người gửi</th>
+                        <th scope="col">Tên người gửi</th>
+                        <th scope="col">Số tiền</th>
+                        <th scope="col">Ngân hàng</th>
+                        <th scope="col">Nội dung</th>
+                        <th scope="col">Ngày nhận</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each chuyenden}}
+                    <tr>
+                        <td>{{tkNguon}}</td>
+                        <td>{{tenNguoiGui}}</td>
+                        <td>{{soTien}}NVD</td>
+                        <td>{{nganHang}}</td>
+                        <td>{{tinNhan}}</td>
+                        <td>{{createdAt}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="giahan" class="tabcontent">
+    <div class="row">
+        <div class="col-2">
+        </div>
+        <div class="col-8">
+            <table class="table table-hover table-light">
+                <thead>
+                    <tr>
+                        <th scope="col">Số thẻ</th>
+                        <th scope="col">Loại thẻ</th>
+                        <th scope="col">Ngày gia hạn</th>
+                        <th scope="col">Gói</th>
+                        <th scope="col">Chi phí</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each giahan}}
+                    <tr>
+                        <td>{{soThe}}</td>
+                        <td>{{loaiThe}}</td>
+                        <td>{{createdAt}}</td>
+                        <td>{{soThang}} Tháng</td>
+                        <td>{{chiPhi}}NVD</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="naptien" class="tabcontent">
+    <div class="row">
+        <div class="col-2">
+        </div>
+        <div class="col-8">
+            <table class="table table-hover table-light">
+                <thead>
+                    <tr>
+                        <th scope="col">Ngày nạp</th>
+                        <th scope="col">Phương thức</th>
+                        <th scope="col">Số tiền</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each naptien}}
+                    <tr>
+                        <td>{{createdAt}}</td>
+                        <td>{{phuongThuc}}</td>
+                        <td>{{soTien}} NVD</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{{/with}}
+{{> footer }}

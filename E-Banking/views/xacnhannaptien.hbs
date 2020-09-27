@@ -1,0 +1,82 @@
+{{>header}}
+<div class="main-content">
+  <!-- Header -->
+  <div class="header bg-gradient-primary py-7 py-lg-8 pt-lg-9">
+    <div class="container">
+      <div class="header-body text-center mb-5">
+        <div class="row justify-content-center">
+          <div class="col-xl-5 col-lg-6 col-md-8 px-5">
+            <h1 class="text-white">Xác nhận nạp tiền</h1>
+             {{#if message}}
+                <div class="form-group alert {{type}}">
+                    <h3>{{message}}</h3>
+                </div>
+              {{/if}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="separator separator-bottom separator-skew zindex-100">
+      <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
+      </svg>
+    </div>
+  </div>
+    <div class="container mt--8 pb-5">
+         <div class="row justify-content-center">
+            <div class="col-xl-5">
+                <div class="card bg-secondary border-0 mb-0">
+                    <div class="card-header bg-transparent pb-5">
+                         <div class="text-muted text-center mt-2 mb-3"><small></small></div>
+                         <div class="btn-wrapper text-center" style="height: auto;">                              
+                            <div class="row">
+                                <div class="card-body px-lg-4 py-lg-4">
+                                        <form role="form"  {{#if isPaypal}}action="/pay"{{else}}action="/account/naptienStripe"{{/if}}  method="POST">                                     
+                                            <div class="form-group mb-3">
+                                                <label class="control-label">Số tài khoản</label>
+                                                <div class="input-group input-group-merge input-group-alternative">
+                                                    <label class="form-control">{{accountNumber}}</label>
+                                                </div>                                              
+                                            </div>
+                                            <div class="form-group mb-3">
+                                                <label class="control-label">Số tiền</label>
+                                                <div class="input-group input-group-merge input-group-alternative">
+                                                    <label class="form-control" name="money">{{money}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group mb-3">
+                                                <label class="control-label">Nhập mật khẩu xác nhận</label>
+                                                <div class="input-group input-group-merge input-group-alternative">
+                                                    <input type="password" class="form-control" id="password" name="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Mật khẩu'" required >
+                                                </div>
+                                            </div>
+                                             {{#if isPaypal}}
+                                             <div class="form-group col-md-12">
+                                                <button class="btn btn-primary" type="submit">Nạp tiền</button>
+                                             </div>
+                                             {{else}}                                              
+                                              <script src="https://checkout.stripe.com/checkout.js"
+                                                        class="stripe-button"
+                                                        data-key="pk_test_ZaByJEkEsyN7UyG8NZUGdFv700lFOBVBVJ"
+                                                        data-locate="auto"
+                                                        data-currency="usd">                    
+                                            </script>                                           
+                                             {{/if}}
+                                            <div class="form-group col-2">
+                                            </div>
+                                            <div class="form-group col-12">
+                                              <a href="/users" class="btn btn-primary">Trở Về</a>  
+                                            </div>
+                                        </form>                                  
+                                </div>                             
+                            </div>                              
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>   
+    </div>
+
+</div>
+
+{{> footer}}
